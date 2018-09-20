@@ -1,5 +1,5 @@
-def scrape:
-""" scrapes data and images about Mars from several websites via BeautifulSoup """
+def scrape():
+    """ scrapes data and images about Mars from several websites via BeautifulSoup """
 
     #import dependencies
     from bs4 import BeautifulSoup as bs
@@ -9,7 +9,7 @@ def scrape:
 
     #initiate splinter
     executable_path = {'executable_path': 'chromedriver.exe'}
-    browser = Browser('chrome', **executable_path, headless=False)
+    browser = Browser("chrome", **executable_path, headless=False)
 
     #scrape NASA Mars News
     #set the url to be scraped
@@ -102,7 +102,7 @@ def scrape:
         hemisphere = {'title': hemisphere_name, 'img_url': hemisphere_pic_url}
         hemispheres.append(hemisphere)
 
-    scrape_results = {'nasa_title': nasa_title, 'nasa_teaser': nasa_teaser, 'jpl_pic_url': jpl_pic_url, 'mars_weather': mars_weather, 'html_facts': html_facts, 'hemispheres' = hemispheres}
+    mars_scrape_results = {'nasa_title': nasa_title, 'nasa_teaser': nasa_teaser, 'jpl_pic_url': jpl_pic_url, 'mars_weather': mars_weather, 'html_facts': html_facts, 'hemispheres': hemispheres}
 
-    return scrape_results
+    return mars_scrape_results
 

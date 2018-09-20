@@ -15,7 +15,23 @@ mongo = PyMongo(app)
 def home():
 
     # Find data
-    forecasts = mongo.db.collection.find()
+    mars_scrape_results = mongo.db.collection.find()
 
     # return template and data
-    return render_template("index.html", forecasts=forecasts)
+    return render_template("index.html", mars_scrape_results=mars_scrape_results)
+
+# Route that will trigger scrape functions
+@app.route("/scrape")
+def scrape():
+
+    # Run scraped function
+    mars_stat = scrape_mars.scrape()
+
+    # Insert forecast into database
+    mongo.db.collection.insert_one(mars_stat)
+
+    # Redirect back to home page
+    return redirect("/", code=302)
+
+if __name__ == "__main__":
+    app.run(debug=True)
