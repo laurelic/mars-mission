@@ -1,17 +1,15 @@
+#import dependencies
+from bs4 import BeautifulSoup as bs
+import pandas as pd
+import requests
+from splinter import Browser
+
 def scrape():
     """ scrapes data and images about Mars from several websites via BeautifulSoup """
-
-    #import dependencies
-    from bs4 import BeautifulSoup as bs
-    import pandas as pd
-    import requests
-    from splinter import Browser
-
     #initiate splinter
     executable_path = {'executable_path': 'chromedriver.exe'}
-    browser = Browser("chrome", **executable_path, headless=False)
+    browser = Browser("chrome", **executable_path, headless=True)
 
-    #scrape NASA Mars News
     #set the url to be scraped
     nasa_url = 'https://mars.nasa.gov/news/'
 
@@ -22,11 +20,11 @@ def scrape():
 
     #get the most recent news tile
     nasa_title = nasa_soup.find('div', class_='content_title').text
+    print(nasa_title)
 
     #get the teaser associated with that title
     nasa_teaser = nasa_soup.find('div', class_='article_teaser_body').text
 
-    #scrape JPL Mars Space Images for Featured Image
     #set the url to be scaped
     jpl_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
 
@@ -102,7 +100,16 @@ def scrape():
         hemisphere = {'title': hemisphere_name, 'img_url': hemisphere_pic_url}
         hemispheres.append(hemisphere)
 
-    mars_scrape_results = {'nasa_title': nasa_title, 'nasa_teaser': nasa_teaser, 'jpl_pic_url': jpl_pic_url, 'mars_weather': mars_weather, 'html_facts': html_facts, 'hemispheres': hemispheres}
+    mars_scrape_results = {
+        'nasa_title': nasa_title,
+        'nasa_teaser': nasa_teaser,
+        'jpl_pic_url': jpl_pic_url,
+        'mars_weather': mars_weather,
+        'html_facts': html_facts,
+        'hemispheres': hemispheres
+        }
 
     return mars_scrape_results
 
+if __name__ == "__main__":
+    print(scrape())

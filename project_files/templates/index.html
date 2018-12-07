@@ -4,7 +4,7 @@
 
     <!--Link Bootswatch stylesheet-->
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
     <div class="jumbotron">
@@ -16,8 +16,10 @@
         <div class="row">
             <h1>Latest News</h1>
         </div>
-        <div class="row">
-            <h3>{{ mars_scrape_results.nasa_title }}</h3>
-        </div>
+        {% for m in mars %}
+            <div class="row">
+                <h3>{{ m.nasa_title }}</h3>
+            </div>
+        {% endfor %}
     </div>
 </body>
