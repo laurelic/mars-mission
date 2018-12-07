@@ -30,7 +30,7 @@ def scrape():
     mars_stat = scrape_mars.scrape()
 
     # Insert forecast into database
-    mars.collection.update({}, mars_stat, upsert=True)
+    mars.update({}, mars_stat, upsert=True)
 
     # Redirect back to home page
     return redirect("/", code=302)

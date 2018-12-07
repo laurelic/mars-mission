@@ -20,7 +20,6 @@ def scrape():
 
     #get the most recent news tile
     nasa_title = nasa_soup.find('div', class_='content_title').text
-    print(nasa_title)
 
     #get the teaser associated with that title
     nasa_teaser = nasa_soup.find('div', class_='article_teaser_body').text
@@ -62,10 +61,14 @@ def scrape():
     #convert the scrape into a DataFrame
     facts_df = facts_table[0]
     facts_df.columns = ['Feature', 'Stat']
+    facts_df = facts_df.set_index(['Feature', 'Stat'])
 
     #convert the dataframe to html
     html_facts = facts_df.to_html()
     html_facts = html_facts.replace('\n', '')
+    html_facts = html_facts.replace('border="1"', '')
+    html_facts = html_facts.replace('dataframe', 'table table-hover')
+    html_facts = html_facts.replace('text-align: right;', 'text-align: left;')
 
     #scrape USGS photos of hemispheres
     #set the url to be scraped
